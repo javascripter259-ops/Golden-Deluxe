@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌋 VolcanoHub - Sua Plataforma Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #94A3B8;
+            font-weight: 300;
+        }
+
+        /* Login/Cadastro */
+        .auth-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+        }
+
+        .auth-box {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-box h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #E2E8F0;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #CBD5E1;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .toggle-auth {
+            text-align: center;
+            margin-top: 20px;
+            color: #94A3B8;
+            font-size: 14px;
+        }
+
+        .toggle-auth a {
+            color: #3B82F6;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .toggle-auth a:hover {
+            color: #60A5FA;
+        }
+
+        /* Dashboard Principal */
+        .dashboard {
+            display: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .welcome-header {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .welcome-header h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .user-greeting {
+            font-size: 20px;
+            color: #94A3B8;
+        }
+
+        /* Card Deluxe */
+        .deluxe-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            margin: 0 auto 40px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .deluxe-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .deluxe-card:hover,
+        .deluxe-card:active {
+            transform: scale(1.05);
+            border-color: rgba(255, 215, 0, 0.8);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3);
+        }
+
+        .deluxe-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #1E293B;
+            margin-bottom: 20px;
+        }
+
+        .deluxe-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+
+        .deluxe-subtitle {
+            font-size: 18px;
+            color: #CBD5E1;
+            margin-bottom: 25px;
+        }
+
+        .get-login-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #10B981, #059669);
+            padding: 15px 40px;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .get-login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.5);
+        }
+
+        /* Página de Login Code */
+        .login-code-page {
+            display: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .code-box {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 24px;
+            padding: 50px;
+            max-width: 600px;
+            margin: 60px auto;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .code-title {
+            font-size: 28px;
+            color: #E2E8F0;
+            margin-bottom: 30px;
+        }
+
+        .login-code {
+            font-size: 64px;
+            font-weight: 800;
+            color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px solid rgba(16, 185, 129, 0.3);
+            margin-bottom: 40px;
+            letter-spacing: 8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .status-text {
+            font-size: 20px;
+            color: #CBD5E1;
+            margin-bottom: 30px;
+        }
+
+        .timer-container {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .timer-label {
+            font-size: 16px;
+            color: #94A3B8;
+            margin-bottom: 15px;
+        }
+
+        .timer-display {
+            font-size: 48px;
+            font-weight: 800;
+            color: #EF4444;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer-active {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .warning-text {
+            font-size: 14px;
+            color: #FCA5A5;
+            margin-top: 20px;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #64748B, #475569);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(100, 116, 139, 0.5);
+        }
+
+        .btn-logout {
+            background: linear-gradient(135deg, #EF4444, #DC2626);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.5);
+        }
+
+        /* Contato */
+        .contact-section {
+            margin-top: 60px;
+            padding: 40px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #E2E8F0;
+        }
+
+        .success-message {
+            background: rgba(34, 197, 94, 0.2);
+            border: 2px solid #22C55E;
+            color: #86EFAC;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #EF4444;
+            color: #FCA5A5;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+            animation: shake 0.5s ease-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .auth-box,
+            .deluxe-card,
+            .code-box {
+                padding: 30px 20px;
+            }
+
+            .deluxe-title {
+                font-size: 24px;
+            }
+
+            .login-code {
+                font-size: 48px;
+                letter-spacing: 4px;
+            }
+
+            .timer-display {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🌋</div>
+            <h1>VolcanoHub</h1>
+            <p class="subtitle">Sua plataforma digital completa</p>
+        </header>
+
+        <!-- Seção de Login/Cadastro -->
+        <div id="authSection" class="auth-section">
+            <div class="auth-box">
+                <h2 id="authTitle">Entrar na Plataforma</h2>
+                
+                <div id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">E-mail</label>
+                        <input type="email" id="loginEmail" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Senha</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <button class="btn" onclick="login()">Entrar</button>
+                    <div class="toggle-auth">
+                        Não tem conta? <a onclick="toggleToRegister()">Criar conta</a>
+                    </div>
+                </div>
+
+                <div id="registerForm" class="hidden">
+                    <div class="form-group">
+                        <label for="registerEmail">E-mail</label>
+                        <input type="email" id="registerEmail" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Senha</label>
+                        <input type="password" id="registerPassword" placeholder="••••••••" required>
+                    </div>
+                    <button class="btn" onclick="register()">Criar Conta</button>
+                    <div class="toggle-auth">
+                        Já tem conta? <a onclick="toggleToLogin()">Fazer login</a>
+                    </div>
+                </div>
+
+                <div id="usernameForm" class="hidden">
+                    <div class="form-group">
+                        <label for="username">Como vai ser seu Nome?</label>
+                        <input type="text" id="username" placeholder="Digite seu nickname..." required>
+                    </div>
+                    <button class="btn" onclick="completeRegistration()" id="btnComplete" disabled>Terminar Login</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Principal -->
+        <div id="dashboard" class="dashboard">
+            <div class="welcome-header">
+                <h2>Bem-vindo de volta! 👋</h2>
+                <p class="user-greeting">Olá, <span id="displayName"></span></p>
+            </div>
+
+            <!-- Card Login Deluxe -->
+            <div class="deluxe-card" onclick="openLoginCode()">
+                <span class="deluxe-badge">⭐ PREMIUM</span>
+                <h3 class="deluxe-title">Login Deluxe</h3>
+                <p class="deluxe-subtitle">1 day FREE</p>
+                <button class="get-login-btn">Get Login Here →</button>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="btn-logout" onclick="logout()">Sair da Conta</button>
+            </div>
+
+            <!-- Formulário de Contato -->
+            <div class="contact-section">
+                <h2 class="section-title">📧 Entre em Contato</h2>
+                <div class="auth-box">
+                    <div id="successMsg" class="success-message">
+                        Mensagem enviada com sucesso! ✅
+                    </div>
+                    <div id="errorMsg" class="error-message">
+                        Por favor, preencha todos os campos! ❌
+                    </div>
+                    <div class="form-group">
+                        <label for="contactName">Nome</label>
+                        <input type="text" id="contactName" placeholder="Seu nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">E-mail</label>
+                        <input type="email" id="contactEmail" placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Mensagem</label>
+                        <textarea id="contactMessage" placeholder="Digite sua mensagem..."></textarea>
+                    </div>
+                    <button class="btn" onclick="sendContact()">Enviar Mensagem</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página de Login Code -->
+        <div id="loginCodePage" class="login-code-page">
+            <div class="code-box">
+                <h2 class="code-title">🔑 Seu Login Code</h2>
+                <div class="login-code">2589</div>
+                <p class="status-text" id="statusText">You have a</p>
+                
+                <div class="timer-container">
+                    <div class="timer-label">⏱️ Tempo Restante</div>
+                    <div class="timer-display" id="timerDisplay">24:00:00</div>
+                </div>
+
+                <p class="warning-text">⚠️ Use este código no jogo para ativar seu acesso Deluxe!</p>
+                
+                <button class="back-btn" onclick="backToDashboard()">← Voltar ao Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let timerInterval;
+        let endTime;
+
+        // Verificar se já está logado
+        window.onload = function() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (user && user.username) {
+                showDashboard(user.username);
+                checkExistingTimer();
+            }
+        }
+
+        function toggleToRegister() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+            document.getElementById('authTitle').textContent = 'Criar Nova Conta';
+        }
+
+        function toggleToLogin() {
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('authTitle').textContent = 'Entrar na Plataforma';
+        }
+
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !password) {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                showDashboard(user.username);
+                checkExistingTimer();
+            } else {
+                alert('E-mail ou senha incorretos!');
+            }
+        }
+
+        function register() {
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+
+            if (!email || !password) {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            if (users.find(u => u.email === email)) {
+                alert('Este e-mail já está cadastrado!');
+                return;
+            }
+
+            sessionStorage.setItem('tempUser', JSON.stringify({ email, password }));
+
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('usernameForm').classList.remove('hidden');
+            document.getElementById('authTitle').textContent = 'Escolha seu Nome';
+        }
+
+        document.getElementById('username').addEventListener('input', function() {
+            const btn = document.getElementById('btnComplete');
+            btn.disabled = this.value.trim() === '';
+        });
+
+        function completeRegistration() {
+            const username = document.getElementById('username').value.trim();
+            
+            if (!username) {
+                alert('Por favor, digite um nome!');
+                return;
+            }
+
+            const tempUser = JSON.parse(sessionStorage.getItem('tempUser'));
+            const newUser = {
+                email: tempUser.email,
+                password: tempUser.password,
+                username: username
+            };
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+
+            sessionStorage.removeItem('tempUser');
+            showDashboard(username);
+        }
+
+        function showDashboard(username) {
+            document.getElementById('authSection').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('displayName').textContent = username;
+            
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            document.getElementById('contactName').value = username;
+            document.getElementById('contactEmail').value = user.email;
+        }
+
+        function openLoginCode() {
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('loginCodePage').style.display = 'block';
+            
+            // Verificar se já tem timer ativo
+            const savedEndTime = localStorage.getItem('deluxeEndTime');
+            if (savedEndTime && new Date(savedEndTime) > new Date()) {
+                endTime = new Date(savedEndTime);
+                startTimer();
+            }
+        }
+
+        function backToDashboard() {
+            document.getElementById('loginCodePage').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+        }
+
+        function checkExistingTimer() {
+            const savedEndTime = localStorage.getItem('deluxeEndTime');
+            if (savedEndTime) {
+                endTime = new Date(savedEndTime);
+                if (endTime > new Date()) {
+                    // Timer ainda está ativo
+                    console.log('Timer ativo detectado');
+                }
+            }
+        }
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+
+            const timerDisplay = document.getElementById('timerDisplay');
+            timerDisplay.classList.add('timer-active');
+
+            timerInterval = setInterval(() => {
+                const now = new Date();
+                const timeLeft = endTime - now;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.textContent = '00:00:00';
+                    timerDisplay.classList.remove('timer-active');
+                    localStorage.removeItem('deluxeEndTime');
+                    document.getElementById('statusText').textContent = 'Tempo expirado!';
+                    return;
+                }
+
+                const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                timerDisplay.textContent = 
+                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // Simular ativação do código no jogo (você conectaria isso ao Roblox)
+        function activateDeluxeCode() {
+            endTime = new Date();
+            endTime.setHours(endTime.getHours() + 24);
+            localStorage.setItem('deluxeEndTime', endTime.toISOString());
+            startTimer();
+        }
+
+        function logout() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                localStorage.removeItem('currentUser');
+                if (timerInterval) clearInterval(timerInterval);
+                location.reload();
+            }
+        }
+
+        function sendContact() {
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const message = document.getElementById('contactMessage').value;
+
+            const errorMsg = document.getElementById('errorMsg');
+            const successMsg = document.getElementById('successMsg');
+
+            if (!name || !email || !message) {
+                errorMsg.style.display = 'block';
+                successMsg.style.display = 'none';
+                setTimeout(() => {
+                    errorMsg.style.display = 'none';
+                }, 3000);
+                return;
+            }
+
+            console.log('Mensagem enviada:', { name, email, message });
+
+            successMsg.style.display = 'block';
+            errorMsg.style.display = 'none';
+            
+            document.getElementById('contactMessage').value = '';
+
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+        }
+
+        // Expor função global para ser chamada do Roblox
+        window.activateDeluxeFromGame = function() {
+            activateDeluxeCode();
+            console.log('Código Deluxe ativado do jogo!');
+        }
+    </script>
+</body>
+</html>
